@@ -2,3 +2,5 @@
 # Without this, Windows git may check out .sh files with CRLF, breaking the shebang line
 # and causing scripts to run under sh/dash instead of bash inside the container.
 *.sh text eol=lf
+* text=auto eol=lf
+
