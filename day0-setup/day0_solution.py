@@ -45,7 +45,7 @@ print("It works!")
 
 # %%
 """
-After you paste the code snippet above to your answer file, **run the cell to ensure it works.**
+After you paste the code snippet above to your answer file, **run the cell to ensure it works** (typically Ctrl+Enter in VS Code).
 """
 # %%
 """
@@ -57,13 +57,13 @@ Let's verify that your development environment is properly set up with all the r
 
 Copy-paste the code snippet below and run it to check your setup.
 """
+# %%
 
 
 def test_prerequisites():
     import subprocess
     import importlib
     import sys
-    import platform
 
     print("🔧 AI Security Bootcamp - Prerequisites Check")
     print("=" * 50)
@@ -141,15 +141,15 @@ def test_prerequisites():
             # Check if remote origin is set to the correct repository
             result = subprocess.run(["git", "remote", "get-url", "origin"], capture_output=True, text=True, timeout=5)
             if result.returncode != 0:
-                print("   💡 Add remote with: git remote add origin git@github.com:pranavgade20/aisb-sg.git")
+                print("   💡 Add remote with: git remote add origin git@github.com:AI-Security-Bootcamp/aisb-sg.git")
                 return False, "Git remote origin not configured"
 
-            expected_remote = "git@github.com:pranavgade20/aisb-sg.git"
+            expected_remote = "git@github.com:AI-Security-Bootcamp/aisb-sg.git"
             actual_remote = result.stdout.strip()
             if actual_remote != expected_remote:
                 print(f"   💡 Current remote: {actual_remote}")
                 print(f"   💡 Expected remote: {expected_remote}")
-                print("   💡 Fix with: git remote set-url origin git@github.com:pranavgade20/aisb-sg.git")
+                print("   💡 Fix with: git remote set-url origin git@github.com:AI-Security-Bootcamp/aisb-sg.git")
                 return False, "Git remote origin URL incorrect"
 
             return True, "Git properly configured"
@@ -249,6 +249,7 @@ class UserIntel:
     location: str | None
     email: str | None
     repo_names: list[str]
+
 
 def analyze_user_behavior(username: str = "karpathy") -> UserIntel:
     """
@@ -398,7 +399,7 @@ Open a terminal in your IDE and run these commands one by one:
 
 1. **Make sure you're on the main branch and have latest changes:**
    ```bash
-   git checkout master
+   git checkout main
    git pull
    ```
 

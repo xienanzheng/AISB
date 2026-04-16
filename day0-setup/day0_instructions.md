@@ -58,7 +58,7 @@ from typing import Callable
 print("It works!")
 ```
 
-After you paste the code snippet above to your answer file, **run the cell to ensure it works.**
+After you paste the code snippet above to your answer file, **run the cell to ensure it works** (typically Ctrl+Enter in VS Code).
 
 
 ## Exercise 2: Test Prerequisites
@@ -102,6 +102,7 @@ class UserIntel:
     location: str | None
     email: str | None
     repo_names: list[str]
+
 
 def analyze_user_behavior(username: str = "karpathy") -> UserIntel:
     """
@@ -193,7 +194,7 @@ Open a terminal in your IDE and run these commands one by one:
 
 1. **Make sure you're on the main branch and have latest changes:**
    ```bash
-   git checkout master
+   git checkout main
    git pull
    ```
 
