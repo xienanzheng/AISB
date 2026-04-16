@@ -24,7 +24,7 @@ before implementing the exercises.
 
 As a standalone CLI (Exercise 4.1 only)::
 
-    python -m w1d2_utils.generate_trajectories --limit 50
+    python -m day2_utils.generate_trajectories --limit 50
 """
 
 from __future__ import annotations
