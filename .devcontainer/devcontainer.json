@@ -39,6 +39,10 @@
 		"source=${localWorkspaceFolder}/ssh,target=/mnt/ssh,type=bind"
 	],
 	//
+	// Runs on the host before the container starts; creates directories and .env
+	// required by the bind mounts and --env-file so Docker doesn't fail on fresh checkout.
+	"initializeCommand": "bash .devcontainer/initialize.sh",
+	//
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": "/bin/bash .devcontainer/setup-devcontainer.sh",
 	//
@@ -64,6 +68,7 @@
 					"editor.defaultFormatter": "charliermarsh.ruff"
 				},
 				"files.insertFinalNewline": true,
+				"python.defaultInterpreterPath": "/home/vscode/.venv/bin/python",
 				"python.envFile": "${workspaceFolder}/.env",
 				"python.terminal.useEnvFile": true
 			}
