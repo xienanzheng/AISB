@@ -140,12 +140,12 @@ Use this checklist to gauge your readiness:
         - You can test this is configured correctly with `ssh -T git@github.com`.
         - Clone the [aisb repo](https://github.com/AI-Security-Bootcamp/aisb-sg)
             ```bash
-            git clone git@github.com:AI-Security-Bootcamp/aisb-sg.git --recursive
+            git clone git@github.com:AI-Security-Bootcamp/aisb-sg.git
             ```
     - Alternatively, if you don't want to save your progress to a branch or just you just want to get started quickly, clone the repo with
 
         ```bash
-        git clone https://github.com/AI-Security-Bootcamp/aisb-sg.git --recursive
+        git clone https://github.com/AI-Security-Bootcamp/aisb-sg.git
         ```
 
 ### Default setup: VS Code based IDE with Dev Containers
