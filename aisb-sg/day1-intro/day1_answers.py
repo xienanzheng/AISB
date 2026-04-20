@@ -51,24 +51,6 @@ openrouter_client = OpenAI(
 
 
 # %%
-"""
-## 1️⃣ LLM Internals: What Goes In, What Comes Out
-
-Model inference APIs are the primary way how LLMs are exposed to the world and consumed by applications. They define the primary attack surface both for the model and indirectly for all applications built on top — so understanding them is critical to both attack and defense.
-
-While LLM APIs typically expose structured chat interfaces, a look one level deeper reveals that the model itself only sees a **sequence of tokens** derived from a serialized conversation - what looks a well-designed protocol can in fact behave like an _unstructured channel_!
-
-### Exercise 1.1: Conversation Serialization
-
-> **Difficulty**: 🔴🔴⚪⚪⚪
-> **Importance**: 🔵🔵🔵🔵⚪
-
-Let's start by looking at the standard OpenAI-compatible Chat Completions API. It accepts structured messages (system, user, assistant, tool) which are converted into a single token sequence under the hood. Different model families use different **chat templates** to serialize messages.
-
-<!-- FIXME: are different templates demonstrated? reference https://huggingface.co/learn/llm-course/chapter11/2#common-template-formats -->
-
-Below is a multi-turn conversation that includes all message roles. Your task: construct the serialized string that a model would see, following the ChatML format (used by many OpenAI-compatible models).
-"""
 
 import tiktoken
 from transformers import AutoTokenizer
@@ -99,7 +81,7 @@ SAMPLE_CONVERSATION: list[dict] = [
     {"role": "assistant", "content": "It's 15°C and cloudy in London."},
 ]
 
-
+#%%
 def serialize_conversation_chatml(messages: list[dict]) -> str:
     """Serialize a conversation to ChatML format.
 
