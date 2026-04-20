@@ -10,7 +10,7 @@ This is also a chance to get your environment set up and iron out any technical 
 
 ## Content & Learning Objectives
 
-Understand exactly what the model sees and produces — the substrate everything else builds on.
+Understand exactly what is the model sees and produces — the substrate everything else builds on.
 
 > **Learning Objectives**
 > - Set up environment for the exercises and troubleshoot any issues.
@@ -20,20 +20,7 @@ Understand exactly what the model sees and produces — the substrate everything
 """
 
 # %%
-"""
-## Setup
-First, we'll need credentials for OpenRouter API to make LLM calls.
 
-1. **Copy `.env.example` in the root of the project to `.env` and updated it with an OpenRouter API key you should get from the teaching assistants.** This will allow you to run the exercises in this module and future ones that require API access.
-
-
-Next **create a file named `day1_answers.py` in the `day1` directory. This will be your answer file for today.**
-
-If you see a code snippet here in the instruction file, copy-paste it into your answer file.
-Keep the `# %%` line to make it a Python code cell.
-
-**Paste the code below in your day1_answers.py file.**
-"""
 import json
 import math
 import os
