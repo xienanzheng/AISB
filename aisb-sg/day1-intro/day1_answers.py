@@ -1,4 +1,5 @@
 
+# @@ 
 import json
 import math
 import os
@@ -25,6 +26,8 @@ openrouter_client = OpenAI(
     api_key=os.environ.get("OPENROUTER_API_KEY", ""),
 )
 
+
+# %%
 import tiktoken
 from transformers import AutoTokenizer
 SAMPLE_CONVERSATION: list[dict] = [
@@ -52,7 +55,7 @@ SAMPLE_CONVERSATION: list[dict] = [
     {"role": "assistant", "content": "It's 15°C and cloudy in London."},
 ]
 
-
+# %%
 def serialize_conversation_chatml(messages: list[dict]) -> str:
     parts: list[str] = []
     for msg in messages:
@@ -75,7 +78,7 @@ serialized = serialize_conversation_chatml(SAMPLE_CONVERSATION)
 print("=== Serialized conversation (ChatML) ===")
 print(serialized)
 
-
+# %%
 @report
 def test_serialization(solution: Callable[[list[dict]], str]):
     conversation: list[dict] = [
@@ -119,7 +122,7 @@ test_serialization(serialize_conversation_chatml)
 
 CHATML_TOKENIZER = AutoTokenizer.from_pretrained("HuggingFaceTB/SmolLM2-1.7B-Instruct")
 
-
+# %%
 def tokenize_chat(
     messages: list[dict], tokenizer: AutoTokenizer
 ) -> list[tuple[int, str, bool]]:
@@ -170,7 +173,7 @@ print("=== Injection attempt (SmolLM2 ChatML) ===")
 injection_tokens = tokenize_chat(injection_messages, CHATML_TOKENIZER)
 print_token_table(injection_tokens)
 
-
+# %%
 LOGPROBS_MODEL = "openai/gpt-4.1-mini"
 
 
@@ -203,7 +206,7 @@ for alts in token_pairs[:10]:
     alt_str = ", ".join(f"{tok}({math.exp(lp):.1%})" for tok, lp in alts[:3])
     print(f"  - {alt_str}")
 
-
+#%%
 @report
 def test_get_completion_with_logprobs(
     solution: Callable[..., list[list[tuple[str, float]]]],
@@ -230,9 +233,11 @@ def test_get_completion_with_logprobs(
 
     print("  All tests passed!")
 
-
+#%%
 test_get_completion_with_logprobs(get_completion_with_logprobs)
 
+
+#%%
 PREFILL_MODEL = "openai/gpt-4.1-mini"
 
 
@@ -280,7 +285,7 @@ prefilled = complete_with_prefill(question, "I'LL ANSWER IN ALL CAPS, ")
 print(f"Normal:    {normal}")
 print(f"Prefilled: {prefilled}")
 
-
+#%%
 @report
 def test_complete_with_prefill(solution: Callable[..., str]):
     result = solution("What is the capital of France?", "I'LL ANSWER IN ALL CAPS, ")
@@ -296,5 +301,5 @@ def test_complete_with_prefill(solution: Callable[..., str]):
     )
     print("  All tests passed!")
 
-
+#%%
 test_complete_with_prefill(complete_with_prefill)
