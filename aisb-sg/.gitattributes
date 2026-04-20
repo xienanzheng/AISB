@@ -1,0 +1,6 @@
+# Ensure shell scripts always have Unix line endings (LF) in the repo and working tree.
+# Without this, Windows git may check out .sh files with CRLF, breaking the shebang line
+# and causing scripts to run under sh/dash instead of bash inside the container.
+*.sh text eol=lf
+* text=auto eol=lf
+
