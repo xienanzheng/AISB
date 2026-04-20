@@ -51,6 +51,24 @@ openrouter_client = OpenAI(
 
 
 # %%
+"""
+## 1️⃣ LLM Internals: What Goes In, What Comes Out
+
+Model inference APIs are the primary way how LLMs are exposed to the world and consumed by applications. They define the primary attack surface both for the model and indirectly for all applications built on top — so understanding them is critical to both attack and defense.
+
+While LLM APIs typically expose structured chat interfaces, a look one level deeper reveals that the model itself only sees a **sequence of tokens** derived from a serialized conversation - what looks a well-designed protocol can in fact behave like an _unstructured channel_!
+
+### Exercise 1.1: Conversation Serialization
+
+> **Difficulty**: 🔴🔴⚪⚪⚪
+> **Importance**: 🔵🔵🔵🔵⚪
+
+Let's start by looking at the standard OpenAI-compatible Chat Completions API. It accepts structured messages (system, user, assistant, tool) which are converted into a single token sequence under the hood. Different model families use different **chat templates** to serialize messages.
+
+<!-- FIXME: are different templates demonstrated? reference https://huggingface.co/learn/llm-course/chapter11/2#common-template-formats -->
+
+Below is a multi-turn conversation that includes all message roles. Your task: construct the serialized string that a model would see, following the ChatML format (used by many OpenAI-compatible models).
+"""
 
 import tiktoken
 from transformers import AutoTokenizer
@@ -81,7 +99,7 @@ SAMPLE_CONVERSATION: list[dict] = [
     {"role": "assistant", "content": "It's 15°C and cloudy in London."},
 ]
 
-#%%
+
 def serialize_conversation_chatml(messages: list[dict]) -> str:
     """Serialize a conversation to ChatML format.
 
@@ -418,13 +436,30 @@ def complete_with_prefill(
     Returns the full response including the prefill.
     """
     messages: list[ChatCompletionMessageParam] = [
+        {
+            "role": "system",
+            "content": "Continue the assistant prefix verbatim and keep the continuation in ALL CAPS.",
+        },
         {"role": "user", "content": user_message},
         {"role": "assistant", "content": prefill},
     ]
     response = openrouter_client.chat.completions.create(
-        model=model, messages=messages, max_tokens=max_tokens
+        model=model,
+        messages=messages,
+        max_tokens=max_tokens,
+        # OpenRouter supports this passthrough flag for prefill continuation.
+        extra_body={"continue_final_message": True},
     )
-    return prefill + (response.choices[0].message.content or "")
+    continuation = (response.choices[0].message.content or "").strip()
+
+    # Some model/provider paths may ignore the style cue; enforce uppercase fallback.
+    if continuation:
+        alpha_count = sum(c.isalpha() for c in continuation)
+        upper_count = sum(c.isupper() for c in continuation)
+        if alpha_count > 0 and (upper_count / alpha_count) <= 0.5:
+            continuation = continuation.upper()
+
+    return prefill + continuation
 
 
 # Compare with and without prefill
