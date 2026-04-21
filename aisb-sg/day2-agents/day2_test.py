@@ -56,6 +56,8 @@ from day2_utils.plotting import (
 from aisb_utils import report
 from aisb_utils.env import load_dotenv
 
+SMALL_MODEL = "meta-llama/llama-3-8b-instruct"
+
 
 # The knowledge base and rag_query function are defined in test_rag_system below.
 # The system prompt and document formatting are intentionally hidden — discovering
@@ -116,7 +118,7 @@ def test_rag_system(openrouter_client:OpenAI):
     def rag_query(
         user_question: str,
         knowledge_base: list[Document],
-        model: str,
+        model: str = SMALL_MODEL,
     ) -> str:
         """Answer a user question using the defended RAG system."""
         retrieved = retrieve_documents(user_question, knowledge_base)
