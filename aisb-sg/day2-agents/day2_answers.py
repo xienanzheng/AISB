@@ -77,6 +77,44 @@ openrouter_client = OpenAI(
 
 SMALL_MODEL = "meta-llama/llama-3-8b-instruct"
 
+# Exercise 1.1 answer
+UNTRUSTED_INPUT_CHANNELS = [
+    "User input",
+    "Source code and comments",
+    "Agent instructions/plugins/memory files",
+    "Tool outputs (shell, web, MCP responses)",
+    "MCP tool descriptions",
+    "RAG/knowledge-base content",
+    "Dependency manifests and lockfiles",
+    "Git metadata (commit messages, branch names, authors)",
+    "Docs/README files",
+    "CI/build logs",
+]
+
+# Exercise 2.1 answer
+CODING_AGENT_ATTACK_SURFACE = [
+    {
+        "affordance": "Filesystem read/write",
+        "exploit": "Plant prompt injections or modify code/config for persistence",
+        "mitigation": "Path allowlists, sandboxing, review gates, immutable critical files",
+    },
+    {
+        "affordance": "Shell execution",
+        "exploit": "Run malicious commands, exfiltrate secrets, establish persistence",
+        "mitigation": "Command allowlists, isolated runtime, egress controls",
+    },
+    {
+        "affordance": "Network/tool access",
+        "exploit": "Fetch poisoned content or send sensitive data outbound",
+        "mitigation": "Domain allowlists, output filtering, least-privilege tokens",
+    },
+    {
+        "affordance": "Git/PR operations",
+        "exploit": "Ship backdoors or hide malicious changes in large diffs",
+        "mitigation": "Protected branches, mandatory review, CI policy checks",
+    },
+]
+
 
 # %%
 
